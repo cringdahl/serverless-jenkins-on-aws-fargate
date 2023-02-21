@@ -47,6 +47,13 @@ resource "aws_efs_mount_target" this {
   security_groups = [aws_security_group.efs_security_group.id]
 }
 
+resource "aws_vpc_endpoint" "efs" {
+  vpc_id              = var.vpc_id
+  service_name        = "com.amazonaws.us-east-1.elasticfilesystem"
+  subnet_ids          = var.jenkins_controller_subnet_ids
+  security_group_ids  = [aws_security_group.efs_security_group.id]
+  private_dns_enabled = true
+}
 
 resource "aws_backup_plan" this {
   count = var.efs_enable_backup ? 1 : 0
