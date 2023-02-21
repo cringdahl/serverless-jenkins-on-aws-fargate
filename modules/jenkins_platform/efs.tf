@@ -49,6 +49,7 @@ resource "aws_efs_mount_target" this {
 
 resource "aws_vpc_endpoint" "efs" {
   vpc_id              = var.vpc_id
+  vpc_endpoint_type   = "Interface"
   service_name        = "com.amazonaws.us-east-1.elasticfilesystem"
   subnet_ids          = var.jenkins_controller_subnet_ids
   security_group_ids  = [aws_security_group.efs_security_group.id]
